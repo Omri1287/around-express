@@ -1,7 +1,5 @@
 const express = require('express');
 const app = express();
-const allUsers = require('./data/users.json')
-const allCards = require('./data/cards.json')
 const path = require('path')
 
 
@@ -17,7 +15,7 @@ app.use('/cards', cardsRouter);
 app.use('/users', usersRouter)
  
 app.get('*', (req, res) => {
-  res.send('Requested resource not found', 404)
+  res.status(404).send({ message: "Page not found" });
 }) 
 
 
