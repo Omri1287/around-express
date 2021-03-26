@@ -1,29 +1,85 @@
 const path = require('path')
 
-const pathtoUsers = path.join(__dirname,'..', 'data', 'users.json')
-const getFilecContent = require('../helpers/getFilecContent')
+//const pathtoUsers = path.join(__dirname,'..', 'data', 'users.json')
+//const getFilecContent = require('../helpers/getFilecContent')
+const User = require("../models/user");
 
- 
+
 
 function getUsers(req, res){
-    return getFilecContent(pathtoUsers)
+    User.find({})
         .then((users) => {
             res.status(200).send(users);
         })
+        .catch()
 }
 
 function getOneUser(req, res){
-    getFilecContent(pathtoUsers)
-        .then((users) => {
-            const user = users.find((user) => user._id === req.params._id);
-            if (user) {
-                return res.status(200).send(user);
-            }
-            return res.status(404).send({ message: 'User ID not found' });
-        })
+    User.findById((req.params._id)
+      .then((user) => {
+        if (user) {
+          res.status(200).send(user);
+        }
+        res.status(404).send({ message: 'User ID not found' })
+      })
+      .catch((err) => {
+        if (err.name === "searchError") {
+          res.status(500).send({ message: "Internal Server Error" });
+        } else {
+          res.status(400).send({message: "This is not the user you are looking for"});
+        }
+      })
+    )
+}
+
+function createUser(req,res){
+  const { name, about, avatar } = req.body;
+  User.create({ name, about, avatar })
+  .then((user) => {
+      res.status(200).send(user)})
+  .catch((err) => {
+    if (err.name === "validateError") {
+      res.status(500).send({ message: "Internal Server Error" });
+    } else {
+      res.status(400).send({message: "Cannot create the user"});
+    }
+  })
+}
+function updateUser(req,res){
+  const { name, about } = req.body;
+  User.findByIdAndUpdate( req.params.id,
+    { name, about },
+    { new: true, runValidators: true })
+  .then((user) => {
+      res.status(200).send(user)})
+  .catch((err) => {
+    if (err.name === "validateError") {
+      res.status(500).send({ message: "Internal Server Error" });
+    } else {
+      res.status(400).send({message: "Cannot update the user"});
+    }
+  })
+}
+function updateAvatar(req,res){
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(req.params.id,
+    { avatar },
+    { new: true, runValidators: true } )
+  .then((user) => {
+      res.status(200).send(user)})
+  .catch((err) => {
+    if (err.name === "validateError") {
+      res.status(500).send({ message: "Internal Server Error" });
+    } else {
+      res.status(400).send({message: "Cannot update the avatar"});
+    }
+  })
 }
 
 module.exports = {
     getOneUser,
-    getUsers
+    getUsers,
+    createUser,
+    updateUser,
+    updateAvatar
 }
