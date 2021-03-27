@@ -1,6 +1,6 @@
 const  mongoose = require('mongoose');
 const validator = require('validator');
-
+//for commit reasons
 
 const userSchema = new mongoose.Schema({
   name: {
