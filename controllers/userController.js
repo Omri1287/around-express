@@ -1,7 +1,7 @@
 const path = require('path')
 
 //const pathtoUsers = path.join(__dirname,'..', 'data', 'users.json')
-//const getFilecContent = require('../helpers/getFilecContent')
+//const getFilecContent = require('../helpers/getFilecContent')//
 const User = require("../models/user");
 
 

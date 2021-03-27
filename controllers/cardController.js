@@ -1,7 +1,7 @@
 
 const path = require('path')
 //const pathtoCards = path.join(__dirname,'..', 'data', 'cards.json')
-//const getFilecContent = require('../helpers/getFilecContent')
+//const getFilecContent = require('../helpers/getFilecContent')//
 
 
 const Card = require("../models/card");

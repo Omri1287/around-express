@@ -36,7 +36,7 @@ app.listen(PORT, () => {
 })
 app.use((req, res, next) => {
   req.user = {
-    _id: '' // paste the _id of the test user created in the previous step
+    _id: '' // paste the _id of the test user created in the previous step//
   };
 
   next();
