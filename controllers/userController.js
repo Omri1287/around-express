@@ -7,7 +7,7 @@ const User = require("../models/user");
 
 
 function getUsers(req, res){
-    User.find({})
+    return User.find({})
         .then((users) => {
             res.status(200).send(users);
         })
@@ -15,7 +15,7 @@ function getUsers(req, res){
 }
 
 function getOneUser(req, res){
-    User.findById((req.params._id)
+    return User.findById((req.params._id)
       .then((user) => {
         if (user) {
           res.status(200).send(user);
@@ -34,7 +34,7 @@ function getOneUser(req, res){
 
 function createUser(req,res){
   const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
+  return User.create({ name, about, avatar })
   .then((user) => {
       res.status(200).send(user)})
   .catch((err) => {
@@ -47,7 +47,7 @@ function createUser(req,res){
 }
 function updateUser(req,res){
   const { name, about } = req.body;
-  User.findByIdAndUpdate( req.params.id,
+  return User.findByIdAndUpdate( req.params.id,
     { name, about },
     { new: true, runValidators: true })
   .then((user) => {
@@ -62,7 +62,7 @@ function updateUser(req,res){
 }
 function updateAvatar(req,res){
   const { avatar } = req.body;
-  User.findByIdAndUpdate(req.params.id,
+  return ser.findByIdAndUpdate(req.params.id,
     { avatar },
     { new: true, runValidators: true } )
   .then((user) => {

@@ -20,6 +20,9 @@ const cardsRouter = require('./routes/cards')
 
 // listen to port 3000
 const { PORT = 3000 } = process.env;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public' )))
 
 app.use('/cards', cardsRouter);
@@ -36,7 +39,7 @@ app.listen(PORT, () => {
 })
 app.use((req, res, next) => {
   req.user = {
-    _id: '' // paste the _id of the test user created in the previous step//
+    _id: '605f55becb5770042f7908f3' // paste the _id of the test user created in the previous step//
   };
 
   next();
