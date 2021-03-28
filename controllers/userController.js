@@ -1,4 +1,4 @@
-const path = require('path')
+//const path = require('path')
 
 //const pathtoUsers = path.join(__dirname,'..', 'data', 'users.json')
 //const getFilecContent = require('../helpers/getFilecContent')//
@@ -15,7 +15,7 @@ function getUsers(req, res){
 }
 
 function getOneUser(req, res){
-    return User.findById((req.params._id)
+    return User.findById((req.params.findByIdid)
       .then((user) => {
         if (user) {
           res.status(200).send(user);
@@ -62,7 +62,7 @@ function updateUser(req,res){
 }
 function updateAvatar(req,res){
   const { avatar } = req.body;
-  return ser.findByIdAndUpdate(req.params.id,
+  return User.findByIdAndUpdate(req.params.id,
     { avatar },
     { new: true, runValidators: true } )
   .then((user) => {

@@ -15,7 +15,7 @@ const cardSchema = new mongoose.Schema({
       validator: (v) => validator.isURL(v, [{ allow_underscores: true }]),
     },
   },
-  owber: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const path = require('path')
+//const path = require('path')
 const  mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 //const helmet = require('helmet');
@@ -23,9 +23,9 @@ const { PORT = 3000 } = process.env;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public' )))
+//app.use(express.static(path.join(__dirname, 'public' )))
 
-app.use('/cards', cardsRouter);
+app.use('/', cardsRouter);
 app.use('/', usersRouter)
 
 app.get('*', (req, res) => {
