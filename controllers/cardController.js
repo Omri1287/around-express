@@ -17,12 +17,13 @@ function getCards(req, res){
 }
 
 function deleteCard(req, res){
-    Card.findByIdAndRemove((req.params.cardId)
+    Card.findByIdAndRemove(req.params.cardId)
       .then((card) => {
         if (card) {
           res.status(200).send(card);
-        }
+        }else{
         res.status(404).send({ message: 'Card not found to delete' })
+        }
       })
       .catch((err) => {
         if (err.name === "searchError") {
@@ -31,7 +32,7 @@ function deleteCard(req, res){
           res.status(400).send({message: "This is not the card you are looking for"});
         }
       })
-    )
+    
 }
 
 function createCard(req,res){
@@ -54,8 +55,9 @@ const likeCard = (req, res) => {
   .then((card) => {
     if (card) {
       res.status(200).send(card);
-    }
+    }else{
     res.status(404).send({ message: 'Card not found to like' })
+    }
   })
   .catch((err) => {
     if (err.name === "searchError") {
@@ -73,8 +75,9 @@ const dislikeCard = (req, res) => {
   .then((card) => {
     if (card) {
       res.status(200).send(card);
-    }
+    }else{
     res.status(404).send({ message: 'Card not found to dislike' })
+    }
   })
   .catch((err) => {
     if (err.name === "searchError") {

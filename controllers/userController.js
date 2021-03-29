@@ -15,12 +15,13 @@ function getUsers(req, res){
 }
 
 function getOneUser(req, res){
-    return User.findById((req.params.findByIdid)
+    return User.findById(req.params.findByIdid)
       .then((user) => {
         if (user) {
           res.status(200).send(user);
-        }
+        }else{
         res.status(404).send({ message: 'User ID not found' })
+        }
       })
       .catch((err) => {
         if (err.name === "searchError") {
@@ -29,7 +30,7 @@ function getOneUser(req, res){
           res.status(400).send({message: "This is not the user you are looking for"});
         }
       })
-    )
+    
 }
 
 function createUser(req,res){
