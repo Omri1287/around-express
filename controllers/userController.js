@@ -9,28 +9,28 @@ const User = require("../models/user");
 function getUsers(req, res){
     return User.find({})
         .then((users) => {
-            res.status(200).send(users);
+          res.status(200).send(users);
         })
         .catch()
 }
 
 function getOneUser(req, res){
-    return User.findById(req.params.findByIdid)
+    return User.findById({_id: req.params.id})
       .then((user) => {
         if (user) {
-          res.status(200).send(user);
+          return res.status(200).send(user);
         }else{
-        res.status(404).send({ message: 'User ID not found' })
+          return res.status(404).send({ message: 'User ID not found' })
         }
       })
       .catch((err) => {
-        if (err.name === "searchError") {
-          res.status(500).send({ message: "Internal Server Error" });
+        if (err.name === "CastError") {
+          return res.status(500).send({ message: "Internal Server Error" });
         } else {
-          res.status(400).send({message: "This is not the user you are looking for"});
+          return es.status(400).send({message: "This is not the user you are looking for"});
         }
       })
-    
+
 }
 
 function createUser(req,res){
@@ -39,10 +39,10 @@ function createUser(req,res){
   .then((user) => {
       res.status(200).send(user)})
   .catch((err) => {
-    if (err.name === "validateError") {
-      res.status(500).send({ message: "Internal Server Error" });
+    if (err.name === "CastError") {
+      return res.status(500).send({ message: "Internal Server Error" });
     } else {
-      res.status(400).send({message: "Cannot create the user"});
+      return res.status(400).send({message: "Cannot create the user"});
     }
   })
 }
@@ -54,10 +54,10 @@ function updateUser(req,res){
   .then((user) => {
       res.status(200).send(user)})
   .catch((err) => {
-    if (err.name === "validateError") {
-      res.status(500).send({ message: "Internal Server Error" });
+    if (err.name === "CastError") {
+      return res.status(500).send({ message: "Internal Server Error" });
     } else {
-      res.status(400).send({message: "Cannot update the user"});
+      return res.status(400).send({message: "Cannot update the user"});
     }
   })
 }
@@ -69,10 +69,10 @@ function updateAvatar(req,res){
   .then((user) => {
       res.status(200).send(user)})
   .catch((err) => {
-    if (err.name === "validateError") {
-      res.status(500).send({ message: "Internal Server Error" });
+    if (err.name === "CastError") {
+      return res.status(500).send({ message: "Internal Server Error" });
     } else {
-      res.status(400).send({message: "Cannot update the avatar"});
+      return res.status(400).send({message: "Cannot update the avatar"});
     }
   })
 }
