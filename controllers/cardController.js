@@ -65,11 +65,10 @@ const likeCard = (req, res) => {
   })
   .catch((err) => {
     if (err.name === "CastError") {
-      return res.status(500).send({ message: "Internal Server Error" });
-    } else {
       return res.status(400).send({message: "This is not the card you are looking for"});
     }
-  })
+    return res.status(500).send({ message: "Internal Server Error" });
+  });
 };
 
 const dislikeCard = (req, res) => {
@@ -85,11 +84,10 @@ const dislikeCard = (req, res) => {
   })
   .catch((err) => {
     if (err.name === "CastError") {
-      return res.status(500).send({ message: "Internal Server Error" });
-    } else {
       return res.status(400).send({message: "This is not the card you are looking for"});
     }
-  })
+    return res.status(500).send({ message: "Internal Server Error" });
+  });
 }
 
 module.exports = {

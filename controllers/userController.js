@@ -25,12 +25,10 @@ function getOneUser(req, res){
       })
       .catch((err) => {
         if (err.name === "CastError") {
-          return res.status(500).send({ message: "Internal Server Error" });
-        } else {
-          return es.status(400).send({message: "This is not the user you are looking for"});
+          return res.status(400).send({message: "This is not the card you are looking for"});
         }
-      })
-
+        return res.status(500).send({ message: "Internal Server Error" });
+      });
 }
 
 function createUser(req,res){
@@ -40,11 +38,10 @@ function createUser(req,res){
       res.status(200).send(user)})
   .catch((err) => {
     if (err.name === "CastError") {
-      return res.status(500).send({ message: "Internal Server Error" });
-    } else {
-      return res.status(400).send({message: "Cannot create the user"});
+      return res.status(400).send({message: "This is not the card you are looking for"});
     }
-  })
+    return res.status(500).send({ message: "Internal Server Error" });
+  });
 }
 function updateUser(req,res){
   const { name, about } = req.body;
@@ -55,11 +52,10 @@ function updateUser(req,res){
       res.status(200).send(user)})
   .catch((err) => {
     if (err.name === "CastError") {
-      return res.status(500).send({ message: "Internal Server Error" });
-    } else {
-      return res.status(400).send({message: "Cannot update the user"});
+      return res.status(400).send({message: "This is not the card you are looking for"});
     }
-  })
+    return res.status(500).send({ message: "Internal Server Error" });
+  });
 }
 function updateAvatar(req,res){
   const { avatar } = req.body;
@@ -70,11 +66,10 @@ function updateAvatar(req,res){
       res.status(200).send(user)})
   .catch((err) => {
     if (err.name === "CastError") {
-      return res.status(500).send({ message: "Internal Server Error" });
-    } else {
-      return res.status(400).send({message: "Cannot update the avatar"});
+      return res.status(400).send({message: "This is not the card you are looking for"});
     }
-  })
+    return res.status(500).send({ message: "Internal Server Error" });
+  });
 }
 
 module.exports = {
