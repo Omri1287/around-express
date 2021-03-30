@@ -19,14 +19,15 @@ function getCards(req, res){
 function deleteCard(req, res){
     Card.findByIdAndRemove(req.params.cardId)
       .then((card) => {
-        if (card) {
-          return res.status(200).send(card);
+        if (!card) {
+          return res.status(404).send({ message: "Card Not Found" });
         }else{
-          return res.status(404).send({ message: 'Card not found to delete' })
+          return res.status(403).send({ message: "not allowed" })
         }
+        res.status(200).send({ message: "Deleted Succesfully" });
       })
       .catch((err) => {
-        if (err.name === "CastError") {
+        if (err.name === "ValidationError") {
           return res.status(500).send({ message: "Internal Server Error" });
         } else {
           return res.status(400).send({message: "This is not the card you are looking for"});

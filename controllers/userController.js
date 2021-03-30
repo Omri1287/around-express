@@ -37,7 +37,7 @@ function createUser(req,res){
   .then((user) => {
       res.status(200).send(user)})
   .catch((err) => {
-    if (err.name === "CastError") {
+    if (err.name === "ValidationError") {
       return res.status(400).send({message: "This is not the card you are looking for"});
     }
     return res.status(500).send({ message: "Internal Server Error" });
